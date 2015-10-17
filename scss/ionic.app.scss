@@ -24,3 +24,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 audio, video {
   display: none;
 }
+
+.center {
+  width:50px;
+  height:50px;
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+
+  .icon:before {
+    font-size: 100px;
+  }
+}

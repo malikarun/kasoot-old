@@ -21,3 +21,39 @@ angular.module('starter', ['ionic'])
     };
   });
 })
+
+.controller("AppCtrl", function($scope, $log){
+  $scope.isPlaying = false;
+
+  var connection = new RTCMultiConnection("haryanvi-radio-kasoot");
+
+  connection.leaveOnPageUnload = true;
+  connection.autoCloseEntireSession = true;
+
+  connection.session = {
+    audio: true,
+    oneway: true
+  };
+
+  connection.onstream = function(e) {
+    document.getElementById('media-content').appendChild(e.mediaElement);
+  };
+
+  // connect to signaling gateway
+  // connection.connect();
+
+  connection.onleave = function() {
+    // connection.renegotiate();
+    $log.info("Your other half has gone, leave the app and start again");
+  };
+
+  $scope.stop = function(){
+    $scope.isPlaying = !$scope.isPlaying;
+    location.reload();
+  }
+
+  $scope.play = function(){
+    $scope.isPlaying = !$scope.isPlaying;
+    connection.connect();
+  }
+});
